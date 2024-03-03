@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="stylesheet/style.css">
+
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <span class="back-button"  onclick="goBack()">←</span>
+            <span class="chat-username">Chat with <%= chatUsername %></span>
+            <span class="call-button" onclick="call()">📞</span>
+        </div>
+        <div class="chatbox" id="chatbox">
+            <!-- add ur message here -->
+        </div>
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" placeholder="Type your message..." onkeydown="handleKeyDown(event)">
+            <span class="send-button" onclick="sendMessage()">➤</span>
+        </div>
+    </div>
+</body>
+
+<script>
+    const Username="Amin";
+
+    function goBack() {
+        window.location.href = 'lobby.html';
+    }
+    
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    }
+
+    function sendMessage() {
+        const input = document.querySelector('.chat-input');
+        if (input.value){
+            addMessage(Username , input.value);
+            input.value = ''; // Clear the input field
+        }   
+    }
+
+    function addMessage(username, message) {
+        const chatbox = document.getElementById('chatbox');
+        const newMessage = document.createElement('div');
+        newMessage.classList.add('message');
+        newMessage.innerText = `${username}: ${message}`;
+        chatbox.insertBefore(newMessage, chatbox.firstChild); // Insert the new message at the beginning
+        // Scroll to the bottom of the chatbox
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+</script>
+</html>
